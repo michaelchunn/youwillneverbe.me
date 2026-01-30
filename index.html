@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>youwillneverbe.me</title>
+  <meta name="description" content="youwillneverbe.me - placeholder site" />
+  <meta name="theme-color" content="#0b0f19" />
+  <style>
+    :root{
+      color-scheme: light dark;
+      --bg: #0b0f19;
+      --panel: rgba(255,255,255,.06);
+      --panel-2: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --ring: rgba(99,102,241,.35);
+      --accent: #8b5cf6;
+      --accent-2: #22c55e;
+      --accent-3: #06b6d4;
+      --radius: 18px;
+      --max: 980px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    /* Light mode overrides */
+    [data-theme="light"]{
+      --bg: #f7f8fc;
+      --panel: rgba(15,23,42,.06);
+      --panel-2: rgba(15,23,42,.10);
+      --text: rgba(15,23,42,.92);
+      --muted: rgba(15,23,42,.68);
+      --border: rgba(15,23,42,.12);
+      --shadow: 0 14px 40px rgba(2,6,23,.12);
+      --ring: rgba(99,102,241,.30);
+    }
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      font-family: var(--sans);
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(139,92,246,.35), transparent 55%),
+                  radial-gradient(1000px 600px at 85% 20%, rgba(6,182,212,.28), transparent 50%),
+                  radial-gradient(900px 600px at 60% 95%, rgba(34,197,94,.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible, input:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 4px var(--ring);
+      border-color: transparent;
+    }
+
+    .wrap{
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 18px;
+    }
+
+    .shell{
+      width: 100%;
+      max-width: var(--max);
+      position: relative;
+    }
+
+    .topbar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 10px 6px;
+    }
+
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 650;
+      letter-spacing: .2px;
+    }
+
+    .logo{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background:
+        radial-gradient(12px 12px at 30% 35%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(135deg, rgba(139,92,246,.95), rgba(6,182,212,.75));
+      box-shadow: 0 10px 28px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+
+    [data-theme="light"] .logo{
+      border: 1px solid rgba(15,23,42,.10);
+      box-shadow: 0 10px 28px rgba(2,6,23,.10);
+    }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel), transparent);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .pill small{
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .2px;
+    }
+
+    .toggle{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel-2), transparent);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor: pointer;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      transition: transform .12s ease, background .2s ease;
+    }
+    .toggle:hover{ transform: translateY(-1px); }
+    .toggle:active{ transform: translateY(0); }
+
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel), transparent 80%);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+      .card{ padding: 22px; }
+    }
+
+    .headline{
+      margin: 0;
+      font-size: clamp(32px, 4.5vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+    }
+
+    .sub{
+      margin: 14px 0 0;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .hint{
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px dashed var(--border);
+      background: rgba(0,0,0,.06);
+    }
+
+    [data-theme="light"] .hint{ background: rgba(15,23,42,.04); }
+
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent-2);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.20);
+    }
+
+    .actions{
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease;
+      user-select: none;
+      font-weight: 600;
+      letter-spacing: .2px;
+      min-width: 160px;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0); }
+
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(139,92,246,.95), rgba(6,182,212,.78));
+      border-color: rgba(255,255,255,.14);
+      color: white;
+    }
+    [data-theme="light"] .btn.primary{
+      border-color: rgba(15,23,42,.10);
+    }
+
+    .btn.ghost{
+      background: linear-gradient(180deg, var(--panel-2), transparent);
+      color: var(--text);
+    }
+
+    .side{
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel-2), transparent 85%);
+      padding: 16px;
+    }
+
+    .side h2{
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .kv{
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .row{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.06);
+    }
+    [data-theme="light"] .row{ background: rgba(15,23,42,.04); }
+
+    .k{
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .v{
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .footer{
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 0 6px;
+    }
+
+    .noise{
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      opacity: .20;
+      mix-blend-mode: overlay;
+    }
+
+    .sr-only{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);
+      white-space:nowrap;border:0;
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      max-width: min(560px, calc(100% - 24px));
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel), transparent);
+      box-shadow: var(--shadow);
+      padding: 12px 14px;
+      color: var(--text);
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      backdrop-filter: blur(14px);
+    }
+    .toast.show{ display: flex; }
+    .toast p{ margin: 0; color: var(--muted); font-size: 13px; }
+    .toast button{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel-2), transparent);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="shell">
+      <div class="topbar">
+        <div class="brand" aria-label="Site brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <div style="font-size:14px; line-height:1.1;">youwillneverbe.me</div>
+            <div style="font-size:12px; color:var(--muted); font-family:var(--mono); margin-top:2px;">placeholder</div>
+          </div>
+        </div>
+
+        <div class="pill" aria-label="Status">
+          <span class="dot" aria-hidden="true"></span>
+          <small id="statusText">Launching soon</small>
+        </div>
+
+        <button class="toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span id="themeIcon" aria-hidden="true">🌙</span>
+          <span style="font-size:13px; font-weight:650;">Theme</span>
+        </button>
+      </div>
+
+      <main class="card" role="main">
+        <div class="noise" aria-hidden="true"></div>
+
+        <div class="grid">
+          <section>
+            <h1 class="headline">This is not the final form.</h1>
+            <p class="sub">
+              youwillneverbe.me is under construction. This page is a clean placeholder that confirms the domain
+              is live and ready for what comes next.
+            </p>
+
+            <div class="hint" role="note" aria-label="Info">
+              <div class="dot" aria-hidden="true" style="background: var(--accent-3); box-shadow: 0 0 0 4px rgba(6,182,212,.18);"></div>
+              <div style="display:grid; gap:2px;">
+                <div style="font-weight:650; font-size:13px;">Modern, fast, simple</div>
+                <div style="color:var(--muted); font-size:13px;">Single file, no dependencies</div>
+              </div>
+            </div>
+
+            <div class="actions" aria-label="Actions">
+              <button class="btn primary" id="copyUrl" type="button" aria-label="Copy site URL">
+                <span aria-hidden="true">⎘</span>
+                Copy URL
+              </button>
+
+              <a class="btn ghost" href="mailto:hello@youwillneverbe.me" aria-label="Email hello@youwillneverbe.me">
+                <span aria-hidden="true">✉</span>
+                Contact
+              </a>
+            </div>
+          </section>
+
+          <aside class="side" aria-label="Details">
+            <h2>Details</h2>
+            <div class="kv">
+              <div class="row">
+                <div class="k">Domain</div>
+                <div class="v">youwillneverbe.me</div>
+              </div>
+              <div class="row">
+                <div class="k">Status</div>
+                <div class="v" id="statusValue">Online</div>
+              </div>
+              <div class="row">
+                <div class="k">Mode</div>
+                <div class="v" id="modeValue">Dark</div>
+              </div>
+              <div class="row">
+                <div class="k">Updated</div>
+                <div class="v" id="updatedValue">Just now</div>
+              </div>
+            </div>
+
+            <div style="margin-top:14px; display:grid; gap:10px;">
+              <div style="font-size:13px; color:var(--muted); line-height:1.5;">
+                Tip: This placeholder is ready for GitHub Pages, Netlify, Cloudflare Pages, or any static host.
+              </div>
+              <div style="font-size:12px; color:var(--muted); font-family:var(--mono);">
+                No backend components required.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <div class="footer" aria-label="Footer">
+        <div>© <span id="year"></span> youwillneverbe.me</div>
+        <div style="font-family:var(--mono);">static placeholder</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+    <p id="toastText">Copied.</p>
+    <button type="button" id="toastClose" aria-label="Close notification">Close</button>
+  </div>
+
+  <script>
+    (function(){
+      const root = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const icon = document.getElementById('themeIcon');
+      const modeValue = document.getElementById('modeValue');
+      const year = document.getElementById('year');
+      const updatedValue = document.getElementById('updatedValue');
+
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toastText');
+      const toastClose = document.getElementById('toastClose');
+
+      const copyUrlBtn = document.getElementById('copyUrl');
+
+      year.textContent = new Date().getFullYear();
+
+      function showToast(msg){
+        toastText.textContent = msg;
+        toast.classList.add('show');
+      }
+      function hideToast(){
+        toast.classList.remove('show');
+      }
+      toastClose.addEventListener('click', hideToast);
+
+      function setUpdated(){
+        const now = new Date();
+        const pad = (n) => String(n).padStart(2,'0');
+        updatedValue.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes());
+      }
+      setUpdated();
+
+      // Theme init: localStorage > system preference
+      const saved = localStorage.getItem('ywnbm_theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      const initial = saved ? saved : (prefersLight ? 'light' : 'dark');
+
+      function applyTheme(theme){
+        if(theme === 'light'){
+          root.setAttribute('data-theme', 'light');
+          icon.textContent = '☀';
+          modeValue.textContent = 'Light';
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f8fc');
+        } else {
+          root.removeAttribute('data-theme');
+          icon.textContent = '🌙';
+          modeValue.textContent = 'Dark';
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b0f19');
+        }
+        localStorage.setItem('ywnbm_theme', theme);
+      }
+      applyTheme(initial);
+
+      toggle.addEventListener('click', function(){
+        const isLight = root.getAttribute('data-theme') === 'light';
+        applyTheme(isLight ? 'dark' : 'light');
+        setUpdated();
+      });
+
+      copyUrlBtn.addEventListener('click', async function(){
+        const url = 'https://youwillneverbe.me';
+        try{
+          await navigator.clipboard.writeText(url);
+          showToast('Copied: ' + url);
+        } catch(e){
+          showToast('Copy not available. URL: ' + url);
+        }
+        setUpdated();
+      });
+
+      // Hide toast after a short time
+      let toastTimer = null;
+      const observer = new MutationObserver(() => {
+        if(toast.classList.contains('show')){
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(hideToast, 2600);
+        }
+      });
+      observer.observe(toast, { attributes: true, attributeFilter: ['class'] });
+    })();
+  </script>
+</body>
+</html>
